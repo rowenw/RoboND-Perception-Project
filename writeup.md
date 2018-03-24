@@ -65,4 +65,26 @@ In the last step in this project, I was trying to calculate the centroids of all
 
 Then for every 'object_to_pick', I tried to find it from the result of recognition process by the object label. The following code snippet was used to caculate the centroids, pick/place position, object name and arm name.
 
+            points_arr = ros_to_pcl(obj_detected.cloud).to_array()
+            centroids = np.mean(points_arr, axis=0)[:3]
+            centroids = [np.asscalar(t) for t in centroids]
+
+            pick_pose = Pose()
+            pick_pose.position.x = centroids[0]
+            pick_pose.position.y = centroids[1]
+            pick_pose.position.z = centroids[2]
+
+            place_pose = Pose()
+            place_pose.position.x = boxs_pos[obj_to_pick['group']][0]
+            place_pose.position.y = boxs_pos[obj_to_pick['group']][1]
+            place_pose.position.z = boxs_pos[obj_to_pick['group']][2]
+
+            object_name = String()
+            object_name.data = obj_to_pick['name']
+
+            arm_name = String()
+            arm_name.data = group_arm[obj_to_pick['group']]
+
+The output yaml files were put into ```output``` directory.
+
 Imporvement could be done on the clustering step, because MinClusterSize was set to 200, there were only seven objects in test3 world. Also svm model could be trained on more samples, like 1000 sample for each objects.  
