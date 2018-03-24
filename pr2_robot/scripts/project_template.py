@@ -26,7 +26,7 @@ import yaml
 
 TEST_SCENE_NUM = 1
 MODEL_FILE = 'model.sav'
-REQUEST_YAML_FILE = 'output.yaml'
+YAML_FILE = 'output.yaml'
 
 
 # Helper function to get surface normals
@@ -252,7 +252,7 @@ def pr2_mover(object_list):
             print "Service call failed: %s"%e
 
     # TODO: Output your request parameters into output yaml file
-    send_to_yaml(REQUEST_YAML_FILE, yaml_request_list)
+    send_to_yaml(YAML_FILE, yaml_request_list)
 
 
 if __name__ == '__main__':
